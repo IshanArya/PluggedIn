@@ -9,9 +9,9 @@ globs: *.mdc
 alwaysApply: true
 ---
 
-# Cursor Rules Location
+# Cursor Rules Location & .mdc Format Conventions
 
-How to add new cursor rules to the project
+How to add new cursor rules to the project and ensure they follow the correct .mdc format:
 
 1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
     ```
@@ -41,31 +41,26 @@ How to add new cursor rules to the project
     - In subdirectories outside .cursor/rules
     - In any other location
 
-5. Cursor rules have the following structure:
+5. All .mdc rule files must start with a valid YAML frontmatter block:
+    ```
+    ---
+    description: Short description of the rule's purpose
+    globs: path/pattern/**/*
+    alwaysApply: true|false
+    ---
+    ```
 
-```
----
-description: Short description of the rule's purpose
-globs: optional/path/pattern/**/* 
-alwaysApply: false
----
-# Rule Title
+6. The main content must use markdown formatting, including a clear title (as a heading), step-by-step instructions, code examples, and guidelines.
 
-Main content explaining the rule with markdown formatting.
-
-1. Step-by-step instructions
-2. Code examples
-3. Guidelines
-
-Example:
-```typescript
-// Good example
-function goodExample() {
-  // Implementation following guidelines
-}
-
-// Bad example
-function badExample() {
-  // Implementation not following guidelines
-}
-```
+7. Example:
+    ```markdown
+    ---
+    description: Enforce explicit return types in TypeScript
+    globs: **/*.ts*
+    alwaysApply: true
+    ---
+    # TypeScript: Explicit Return Types
+    
+    1. All exported functions must have explicit return types.
+    2. ...
+    ```
