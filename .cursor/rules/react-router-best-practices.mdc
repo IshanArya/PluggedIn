@@ -1,0 +1,22 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# React Router & Remix: Best Practices
+
+1. Use route-based code splitting for performance.
+2. Prefer data loaders and actions for data fetching and mutations.
+3. Use nested routes for layout composition.
+4. Always handle errors with error boundaries at route level.
+5. Use `useLoaderData`, `useActionData`, and `useRouteError` hooks for type-safe data access.
+
+```tsx
+// Good
+export function ErrorBoundary() {
+  // ...
+}
+
+// Bad
+// No error boundary defined for route
+```

@@ -1,0 +1,24 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# TypeScript: Enforce Strict Types
+
+1. Always enable `strict` mode in `tsconfig.json`.
+2. Avoid using `any` type. Prefer `unknown`, generics, or precise types.
+3. Use type inference where possible, but always annotate public APIs.
+4. Prefer `interface` for public contracts and `type` for unions/intersections.
+5. Use `readonly` and `const` assertions to enforce immutability.
+
+```typescript
+// Good
+function add(a: number, b: number): number {
+  return a + b;
+}
+
+// Bad
+function add(a, b) {
+  return a + b;
+}
+```

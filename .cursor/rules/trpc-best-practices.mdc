@@ -1,0 +1,25 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# tRPC: Best Practices
+
+1. Define all procedures and routers with full type safety using Zod for input validation.
+2. Use `createTRPCReact` for React integration and hooks.
+3. Co-locate API types with procedures for maintainability.
+4. Prefer queries and mutations over raw fetch for data access.
+5. Handle errors with tRPC's error formatter and React error boundaries.
+
+```typescript
+// Good
+const userRouter = t.router({
+  getUser: t.procedure.input(z.string()).query(({ input }) => {/* ... */}),
+});
+
+// Bad
+const userRouter = t.router({
+  getUser: t.procedure.query(({ input }) => {/* ... */}), // No input validation
+});
+```
+

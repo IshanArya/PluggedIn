@@ -1,0 +1,20 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# TypeScript: Avoid Namespaces
+
+1. Do not use `namespace` or `module` for code organization; prefer ES modules.
+2. Namespaces are legacy and unnecessary with modern module systems.
+
+```typescript
+// Good
+// Use ES module imports/exports
+export function foo() {}
+
+// Bad
+namespace MyNamespace {
+  export function foo() {}
+}
+```

@@ -1,0 +1,21 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# TypeScript: Explicit Return Types for Exported Functions
+
+1. All exported functions and methods must have explicit return types.
+2. This improves readability and helps catch errors during refactoring.
+
+```typescript
+// Good
+export function getUser(id: string): User | null {
+  // ...
+}
+
+// Bad
+export function getUser(id: string) {
+  // ...
+}
+```

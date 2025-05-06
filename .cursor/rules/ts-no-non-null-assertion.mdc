@@ -1,0 +1,19 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# TypeScript: Avoid Non-Null Assertions
+
+1. Avoid using the non-null assertion operator (`!`).
+2. Prefer proper type narrowing and checks to ensure values are not null or undefined.
+
+```typescript
+// Good
+if (user) {
+  doSomething(user);
+}
+
+// Bad
+doSomething(user!);
+```

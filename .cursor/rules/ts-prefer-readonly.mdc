@@ -1,0 +1,25 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# TypeScript: Prefer Readonly and Const
+
+1. Use `const` for variables that are never reassigned.
+2. Use `readonly` for properties and array types that should not be mutated.
+
+```typescript
+// Good
+const API_URL = "https://api.example.com";
+interface User {
+  readonly id: string;
+  name: string;
+}
+
+// Bad
+let API_URL = "https://api.example.com";
+interface User {
+  id: string;
+  name: string;
+}
+```

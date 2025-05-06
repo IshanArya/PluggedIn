@@ -1,0 +1,25 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Mantine: Usage Best Practices
+
+1. Use MantineProvider at the root of your app to provide theme and context.
+2. Prefer Mantine components for layout, forms, and UI elements for consistency.
+3. Use the `theme` prop for custom theming and color schemes.
+4. Use `Notifications` for user feedback and alerts.
+5. Avoid mixing Mantine and non-Mantine UI libraries in the same component tree.
+
+```tsx
+// Good
+<MantineProvider theme={{ primaryColor: 'blue' }}>
+  <Notifications />
+  <App />
+</MantineProvider>
+
+// Bad
+<div className="custom-wrapper">
+  <Button>Click</Button> {/* Not wrapped in MantineProvider */}
+</div>
+```

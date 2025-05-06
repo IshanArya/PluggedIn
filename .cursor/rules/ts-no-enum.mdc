@@ -1,0 +1,21 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# TypeScript: Avoid Enums
+
+1. Prefer union types or objects over enums for better type safety and tree-shaking.
+2. Enums can introduce runtime code and unexpected behavior.
+
+```typescript
+// Good
+export type Status = 'pending' | 'success' | 'error';
+
+// Bad
+enum Status {
+  Pending,
+  Success,
+  Error,
+}
+```

@@ -1,0 +1,21 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# TypeScript: No Implicit Any
+
+1. All variables, parameters, and return types must be explicitly typed or inferrable.
+2. The `noImplicitAny` compiler option should be enabled in `tsconfig.json`.
+
+```typescript
+// Good
+function greet(name: string) {
+  return `Hello, ${name}`;
+}
+
+// Bad
+function greet(name) {
+  return `Hello, ${name}`;
+}
+```
