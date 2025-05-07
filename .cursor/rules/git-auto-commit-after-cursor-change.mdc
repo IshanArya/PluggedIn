@@ -5,6 +5,7 @@ globs:
 alwaysApply: true
 ---
 ```
+
 # Git Auto-Commit After Cursor IDE Change
 
 1. **After each change performed automatically by Cursor (e.g., from a prompt or tool), commit all changed files.**

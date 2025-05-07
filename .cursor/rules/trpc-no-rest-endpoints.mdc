@@ -5,6 +5,7 @@ globs: "**/*.ts,**/*.tsx"
 alwaysApply: true
 ---
 ```
+
 # tRPC: No REST-Style Endpoints for tRPC Routers
 
 1. **Do not add REST-style API endpoints (e.g., `/api/xyz`) that simply proxy to tRPC routers.**

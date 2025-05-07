@@ -5,6 +5,7 @@ globs: "**/*.js,**/*.jsx,**/*.ts,**/*.tsx,**/*.json,**/*.yml,**/*.yaml,**/*.env,
 alwaysApply: false
 ---
 ```
+
 # NPM Package Existence Check and Auto-Install
 
 1. Before using any npm package in code, check if it is installed in `node_modules`.
