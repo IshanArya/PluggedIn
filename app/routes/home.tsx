@@ -1,5 +1,6 @@
 import type { Route } from "./+types/home";
 import { Welcome } from "../welcome/welcome";
+import { trpc } from '../server/trpcClient';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -9,5 +10,13 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  return <Welcome />;
+  const { data, isLoading } = trpc.hello.useQuery({ name: 'PluggedIn' });
+  return (
+    <div>
+      <Welcome />
+      <div className="mt-4">
+        {isLoading ? 'Loading greeting...' : data?.greeting}
+      </div>
+    </div>
+  );
 }

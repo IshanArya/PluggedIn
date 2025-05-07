@@ -1,0 +1,23 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# NPM Package Existence Check and Auto-Install
+
+1. Before using any npm package in code, check if it is installed in `node_modules`.
+2. If the package does not exist, automatically retrieve and install it from npm using the appropriate package manager command (e.g., `npm install <package>`).
+3. Log or notify when a package is auto-installed for traceability.
+4. Prefer the latest compatible version unless a specific version is required by the project.
+5. Example:
+   - **Good:**
+     ```ts
+     // Check for '@react-router/fs-routes' before import
+     import { flatRoutes } from '@react-router/fs-routes';
+     // If not found, run: npm install @react-router/fs-routes
+     ```
+   - **Bad:**
+     ```ts
+     // Import without checking or installing
+     import { something } from 'missing-package';
+     ```
