@@ -1,0 +1,31 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# tRPC: No REST-Style Endpoints for tRPC Routers
+
+1. **Do not add REST-style API endpoints (e.g., `/api/xyz`) that simply proxy to tRPC routers.**
+2. **Always use tRPC procedures and the tRPC client for all backend/frontend communication where tRPC is available.**
+3. If a REST endpoint is needed, it must be for a non-tRPC use case and should not duplicate tRPC router logic.
+4. Remove any code that adds REST-style endpoints for tRPC routers if found.
+
+## Example
+
+```ts
+// Bad: REST endpoint that proxies to tRPC
+export async function loader(args) {
+  if (url.pathname === '/api/spotify/me') {
+    return appRouter.loader.spotifyMe({ request: args.request });
+  }
+  return handleRequest(args);
+}
+
+// Good: Only use tRPC fetchRequestHandler
+export const loader = (args) => handleRequest(args);
+```
+
+## Rationale
+- Keeps API surface consistent and type-safe.
+- Avoids confusion and duplication between REST and tRPC endpoints.
+- Ensures best practices for tRPC usage.
