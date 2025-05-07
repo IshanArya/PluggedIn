@@ -1,11 +1,13 @@
-```mdc
 ---
-description:
+description: Prefer async/await to promise chaining
 globs: "**/*.ts,**/*.tsx"
 alwaysApply: false
 ---
-```
+
 # ts-prefer-async-await
+
+## Description
+Enforces the use of `async`/`await` syntax instead of direct Promise chaining (`then`/`catch`) in TypeScript files. This improves code readability, maintainability, and error handling by encouraging a modern and consistent asynchronous programming style. Applies to all TypeScript and TSX files in the project.
 
 ## Rule
 Prefer using `async`/`await` syntax over direct Promise chaining (`then`/`catch`) in TypeScript, when possible.

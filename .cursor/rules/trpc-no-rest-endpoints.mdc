@@ -1,10 +1,8 @@
-```mdc
 ---
 description: Always use pure tRPC endpoints; do not add REST-style API endpoints for tRPC routers
 globs: "**/*.ts,**/*.tsx"
 alwaysApply: true
 ---
-```
 
 # tRPC: No REST-Style Endpoints for tRPC Routers
 

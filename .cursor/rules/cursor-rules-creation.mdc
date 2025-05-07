@@ -1,10 +1,8 @@
-```mdc
 ---
 description: Cursor Rules Location & .mdc Format Conventions
 globs: "**/*.mdc"
 alwaysApply: true
 ---
-```
 
 # Cursor Rules Location & .mdc Format Conventions
 

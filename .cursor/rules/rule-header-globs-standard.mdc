@@ -1,10 +1,8 @@
-```mdc
 ---
 description: Cursor Rule YAML Header Globs Standard
 globs: "**/*.mdc"
 alwaysApply: true
 ---
-```
 
 # Cursor Rule YAML Header Globs Standard
 

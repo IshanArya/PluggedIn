@@ -1,10 +1,8 @@
-```mdc
 ---
 description:
 globs: "**/*.js,**/*.jsx,**/*.ts,**/*.tsx"
 alwaysApply: false
 ---
-```
 
 # React: Component Structure and Conventions
 

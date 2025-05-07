@@ -1,0 +1,38 @@
+---
+description: Enforces that all Cursor rule files must include both a description and globs field in the YAML header, not as Markdown headings, to ensure consistency and enable automated tooling.
+globs:
+alwaysApply: true
+---
+# Cursor Rule Header: Description and Globs
+
+## Rule
+- Always add the `description` and `globs` fields in the YAML header (metadata block) at the top of each `.mdc` rule file.
+- Do **not** add `## Description` or `## Globs` as Markdown headings in the rule content.
+
+## Reasoning
+- Centralizes rule metadata for easier parsing and automation.
+- Follows the [Cursor Rules Instructions](mdc:cursor-rules-creation.mdc) for rule formatting and structure.
+- Prevents duplication and confusion between metadata and content.
+
+## Bad Example
+```mdc
+---
+globs: "**/*.ts,**/*.tsx"
+---
+# My Rule
+
+## Description
+This rule does something important.
+```
+
+## Good Example
+```mdc
+---
+description: This rule does something important.
+globs: "**/*.ts,**/*.tsx"
+---
+# My Rule
+```
+
+## References
+- [Cursor Rules Instructions](mdc:cursor-rules-creation.mdc)

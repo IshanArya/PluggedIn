@@ -1,10 +1,8 @@
-```mdc
 ---
 description:
 globs: "**/*.js,**/*.jsx,**/*.ts,**/*.tsx,**/*.json,**/*.yml,**/*.yaml,**/*.env,**/*.md,**/*.mdc"
 alwaysApply: false
 ---
-```
 
 # Modern Tooling and Practices
 

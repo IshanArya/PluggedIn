@@ -1,10 +1,8 @@
-```mdc
 ---
 description: Disallow usage of TypeScript enums
 globs: "**/*.ts,**/*.tsx"
 alwaysApply: true
 ---
-```
 
 # TypeScript: Avoid Enums
 
