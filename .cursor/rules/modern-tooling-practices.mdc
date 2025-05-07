@@ -1,0 +1,34 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Modern Tooling and Practices
+
+## Rule
+Always use the latest stable, non-deprecated tools, commands, and practices for all development, configuration, and automation tasks in this project.
+
+## Guidelines
+1. **Do not use deprecated commands, flags, or APIs.**
+   - Always check official documentation or release notes for deprecation warnings.
+2. **Prefer officially recommended setup and configuration methods.**
+   - For example, use `npx husky init` instead of deprecated `husky install` or `husky add`.
+3. **Keep dependencies and tooling up to date.**
+   - Regularly check for updates and breaking changes.
+4. **Document any workarounds or legacy support clearly in code comments.**
+5. **If a tool or method is deprecated, migrate to the recommended alternative as soon as possible.**
+
+## Example
+- ❌ **Deprecated:**
+  ```sh
+  npx husky add .husky/pre-commit "npm run lint"
+  ```
+- ✅ **Modern:**
+  ```sh
+  npx husky init
+  # Then manually edit the hook script as needed
+  ```
+
+## Enforcement
+- PRs and code reviews should reject use of deprecated tooling or practices.
+- Automated scripts and documentation must reflect current best practices.
