@@ -1,6 +1,6 @@
 ---
-description:
-globs:
+description: Prefer type-only imports in TypeScript files
+globs: "**/*.ts,**/*.tsx"
 alwaysApply: false
 ---
 # TypeScript: Prefer Type-Only Imports

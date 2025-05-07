@@ -1,6 +1,6 @@
 ---
-description:
-globs:
+description: 
+globs: "**/*.ts,**/*.tsx"
 alwaysApply: false
 ---
 # TypeScript: Avoid Namespaces

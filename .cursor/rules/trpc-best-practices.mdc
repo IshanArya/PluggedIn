@@ -1,6 +1,6 @@
 ---
 description:
-globs:
+globs: "**/*.js,**/*.jsx,**/*.ts,**/*.tsx"
 alwaysApply: false
 ---
 # tRPC: Best Practices

@@ -1,6 +1,6 @@
 ---
 description:
-globs:
+globs: "**/*.ts,**/*.tsx"
 alwaysApply: false
 ---
 # TypeScript: Explicit Return Types for Exported Functions

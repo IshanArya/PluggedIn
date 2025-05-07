@@ -1,11 +1,6 @@
 ---
 description: 
-globs: 
-alwaysApply: true
----
----
-description: This rule explains how to create new .mdc project rule files for the Cursor agent.
-globs: *.mdc
+globs: "**/*.mdc"
 alwaysApply: true
 ---
 
