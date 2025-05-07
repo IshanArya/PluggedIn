@@ -21,7 +21,7 @@ export default function Profile() {
             setLoading(false);
             return;
         }
-        fetch('/api/spotify/me', {
+        fetch('https://api.spotify.com/v1/me', {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then(async (res) => {
@@ -29,6 +29,7 @@ export default function Profile() {
                 return res.json();
             })
             .then((data) => {
+                console.log('data', data);
                 setProfile(data);
                 setLoading(false);
             })
@@ -56,7 +57,7 @@ export default function Profile() {
     return (
         <Container size="xs" py="xl">
             <Card shadow="sm" padding="lg" radius="md" withBorder>
-                <Group position="apart" mb="md">
+                <Group mb="md">
                     <Avatar src={profile.images?.[0]?.url} size={80} radius="xl" />
                     <Title order={3}>{profile.display_name}</Title>
                 </Group>
