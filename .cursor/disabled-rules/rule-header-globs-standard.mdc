@@ -3,7 +3,6 @@ description: Cursor Rule YAML Header Globs Standard
 globs: "**/*.mdc"
 alwaysApply: true
 ---
-
 # Cursor Rule YAML Header Globs Standard
 
 All Cursor rule files must have a YAML header with a `globs` field that aggressively matches the appropriate file types for the rule's domain:
@@ -18,4 +17,5 @@ All Cursor rule files must have a YAML header with a `globs` field that aggressi
 - Always update or add the `globs` field in the YAML header when creating or editing a rule file.
 - The `globs` field must not be empty and must match the rule's intended file types.
 - This rule always applies to all `.mdc` rule files.
-- **Note:** For `.mdc` rule files, you may need to use command-line tools (e.g., `sed`) to modify YAML headers, as some editors may not allow direct editing of these fields.
+- **You must modify the YAML header (metadata) using a command-line tool (e.g., `sed`). There is no other way to modify the metadata.**
+- **The command must first read the file to check if a YAML header already exists and update it if present, or insert a new header if not. Do not simply append a new header to the file.**
