@@ -1,6 +1,6 @@
 ---
 description: Disallow usage of TypeScript enums
-globs: "**/*.ts,**/*.tsx"
+globs: **/*.ts,**/*.tsx
 alwaysApply: true
 ---
 

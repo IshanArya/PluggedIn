@@ -1,6 +1,6 @@
 ---
-description:
-globs: "**/*.js,**/*.jsx,**/*.ts,**/*.tsx"
+description: 
+globs: **/*.ts,**/*.tsx,**/*.js,**/*.jsx
 alwaysApply: false
 ---
 

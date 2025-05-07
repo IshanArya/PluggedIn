@@ -1,6 +1,6 @@
 ---
 description:
-globs: "**/*.js,**/*.jsx,**/*.ts,**/*.tsx,**/*.json,**/*.yml,**/*.yaml,**/*.env,**/*.md,**/*.mdc"
+globs: **/*.js,**/*.jsx,**/*.ts,**/*.tsx,**/*.json,**/*.yml,**/*.yaml,**/*.env,**/*.md,**/*.mdc
 alwaysApply: false
 ---
 

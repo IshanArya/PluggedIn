@@ -1,6 +1,6 @@
 ---
 description: Cursor Rules Location & .mdc Format Conventions
-globs: "**/*.mdc"
+globs: **/*.mdc
 alwaysApply: true
 ---
 
