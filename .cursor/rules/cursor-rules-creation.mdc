@@ -3,7 +3,13 @@ description:
 globs: "**/*.mdc"
 alwaysApply: true
 ---
-
+```mdc
+---
+description: Cursor Rules Location & .mdc Format Conventions
+globs: "**/*.mdc"
+alwaysApply: true
+---
+```
 # Cursor Rules Location & .mdc Format Conventions
 
 How to add new cursor rules to the project and ensure they follow the correct .mdc format:
