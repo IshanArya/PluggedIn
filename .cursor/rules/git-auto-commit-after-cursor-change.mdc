@@ -1,12 +1,7 @@
----
-description: 
-globs: 
-alwaysApply: true
----
 ```mdc
 ---
 description: Git Auto-Commit After Cursor IDE Change
-globs: "**/*.js,**/*.jsx,**/*.ts,**/*.tsx,**/*.json,**/*.yml,**/*.yaml,**/*.env,**/*.md,**/*.mdc"
+globs:
 alwaysApply: true
 ---
 ```

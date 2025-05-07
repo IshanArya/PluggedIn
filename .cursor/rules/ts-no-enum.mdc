@@ -1,8 +1,11 @@
+```mdc
 ---
 description: Disallow usage of TypeScript enums
 globs: "**/*.ts,**/*.tsx"
 alwaysApply: true
 ---
+```
+
 # TypeScript: Avoid Enums
 
 1. Prefer union types or objects over enums for better type safety and tree-shaking.

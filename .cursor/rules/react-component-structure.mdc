@@ -1,8 +1,11 @@
+```mdc
 ---
 description:
 globs: "**/*.js,**/*.jsx,**/*.ts,**/*.tsx"
 alwaysApply: false
 ---
+```
+
 # React: Component Structure and Conventions
 
 1. Use function components and hooks; avoid class components.

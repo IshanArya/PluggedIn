@@ -1,8 +1,3 @@
----
-description: 
-globs: "**/*.mdc"
-alwaysApply: true
----
 ```mdc
 ---
 description: Cursor Rules Location & .mdc Format Conventions

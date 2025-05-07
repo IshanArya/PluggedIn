@@ -1,12 +1,16 @@
+```mdc
 ---
 description: Prefer type-only imports in TypeScript files
 globs: "**/*.ts,**/*.tsx"
 alwaysApply: false
 ---
+```
+
 # TypeScript: Prefer Type-Only Imports
 
 1. Use `import type` for importing types to improve clarity and enable faster builds.
 2. This helps tools and bundlers optimize code and avoid unnecessary imports at runtime.
+```
 
 ```typescript
 // Good

@@ -1,8 +1,11 @@
+```mdc
 ---
 description:
 globs: "**/*.js,**/*.jsx,**/*.ts,**/*.tsx"
 alwaysApply: false
 ---
+```
+
 # React Router & Remix: Best Practices
 
 1. Use route-based code splitting for performance.

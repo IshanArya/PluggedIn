@@ -1,8 +1,3 @@
----
-description:
-globs:
-alwaysApply: true
----
 ```mdc
 ---
 description: Cursor Rule YAML Header Globs Standard
@@ -10,6 +5,7 @@ globs: "**/*.mdc"
 alwaysApply: true
 ---
 ```
+
 # Cursor Rule YAML Header Globs Standard
 
 All Cursor rule files must have a YAML header with a `globs` field that aggressively matches the appropriate file types for the rule's domain:

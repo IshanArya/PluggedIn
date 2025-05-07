@@ -1,8 +1,11 @@
+```mdc
 ---
 description:
 globs: "**/*.ts,**/*.tsx"
 alwaysApply: false
 ---
+```
+
 # TypeScript: Enforce Strict Types
 
 1. Always enable `strict` mode in `tsconfig.json`.

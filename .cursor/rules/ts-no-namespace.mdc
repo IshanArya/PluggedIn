@@ -1,8 +1,11 @@
+```mdc
 ---
 description: 
 globs: "**/*.ts,**/*.tsx"
 alwaysApply: false
 ---
+```
+
 # TypeScript: Avoid Namespaces
 
 1. Do not use `namespace` or `module` for code organization; prefer ES modules.

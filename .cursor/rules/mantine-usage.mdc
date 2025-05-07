@@ -1,8 +1,11 @@
+```mdc
 ---
 description:
 globs: "**/*.js,**/*.jsx,**/*.ts,**/*.tsx"
 alwaysApply: false
 ---
+```
+
 # Mantine: Usage Best Practices
 
 1. Use MantineProvider at the root of your app to provide theme and context.

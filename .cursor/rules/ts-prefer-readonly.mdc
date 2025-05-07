@@ -1,8 +1,11 @@
+```mdc
 ---
 description:
 globs: "**/*.ts,**/*.tsx"
 alwaysApply: false
 ---
+```
+
 # TypeScript: Prefer Readonly and Const
 
 1. Use `const` for variables that are never reassigned.

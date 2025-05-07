@@ -1,8 +1,11 @@
+```mdc
 ---
 description:
 globs: "**/*.ts,**/*.tsx"
 alwaysApply: false
 ---
+```
+
 # TypeScript: Avoid Non-Null Assertions
 
 1. Avoid using the non-null assertion operator (`!`).
