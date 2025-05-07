@@ -3,18 +3,22 @@ import { z } from 'zod';
 
 // Context creation (expand as needed)
 export async function createContext() {
-    return {};
+  return {};
 }
 type Context = Awaited<ReturnType<typeof createContext>>;
 
-const t = initTRPC.context<Context>().create();
+export const t = initTRPC.context<Context>().create();
 
-export const appRouter = t.router({
-    hello: t.procedure
-        .input(z.object({ name: z.string().optional() }))
-        .query(({ input }) => {
-            return { greeting: `Hello, ${input.name ?? 'world'}!` };
-        }),
-});
+// export const appRouter = t.router({
+//     hello: t.procedure
+//         .input(z.object({ name: z.string().optional() }))
+//         .query(({ input }) => {
+//             return { greeting: `Hello, ${input.name ?? 'world'}!` };
+//         }),
+// });
 
-export type AppRouter = typeof appRouter; 
+const publicProcedure = t.procedure;
+
+export const p = {
+  public: publicProcedure,
+};
