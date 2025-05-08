@@ -5,7 +5,8 @@ export const appRouter = t.router({
   loader: t.router({
     hello,
   }),
-  action: t.router({}),
+  action: t.router({
+  }),
 });
 
 export type AppRouter = typeof appRouter;

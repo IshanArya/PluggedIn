@@ -1,8 +1,9 @@
 ---
 description:
-globs:
+globs: **/*.js,**/*.jsx,**/*.ts,**/*.tsx,**/*.json,**/*.yml,**/*.yaml,**/*.env,**/*.md,**/*.mdc
 alwaysApply: false
 ---
+
 # NPM Package Existence Check and Auto-Install
 
 1. Before using any npm package in code, check if it is installed in `node_modules`.

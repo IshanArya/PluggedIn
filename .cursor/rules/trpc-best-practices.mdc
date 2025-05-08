@@ -1,8 +1,9 @@
 ---
 description:
-globs:
+globs: **/*.js,**/*.jsx,**/*.ts,**/*.tsx
 alwaysApply: false
 ---
+
 # tRPC: Best Practices
 
 1. Define all procedures and routers with full type safety using Zod for input validation.

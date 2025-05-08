@@ -1,8 +1,9 @@
 ---
-description:
-globs:
+description: 
+globs: **/*.ts,**/*.tsx,**/*.js,**/*.jsx
 alwaysApply: false
 ---
+
 # Mantine: Usage Best Practices
 
 1. Use MantineProvider at the root of your app to provide theme and context.

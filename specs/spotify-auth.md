@@ -23,6 +23,7 @@ This specification covers the authentication process required for accessing user
 
 ## Redirect URI
 - Must match the URI registered in the Spotify Developer Dashboard.
+- For development, you can use `http://127.0.0.1` (or `http://localhost`) as the redirect URI, but it must also be registered in the Spotify Developer Dashboard.
 
 ## References
 - [Spotify Authorization Guide](https://developer.spotify.com/documentation/web-api/tutorials/code-flow) 

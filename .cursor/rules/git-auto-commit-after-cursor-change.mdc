@@ -1,12 +1,13 @@
 ---
-description:
+description: Git Auto-Commit After Cursor IDE Change
 globs:
-alwaysApply: false
+alwaysApply: true
 ---
+
 # Git Auto-Commit After Cursor IDE Change
 
 1. **After each change performed automatically by Cursor (e.g., from a prompt or tool), commit all changed files.**
-2. **Use the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) convention for the commit message title.**
+2. **Use the [Conventional Commits](mdc:https:/www.conventionalcommits.org/en/v1.0.0) convention for the commit message title.**
    - Example: `feat: add Spotify OAuth2 authentication spec`
 3. **In the commit message body, explain what was changed and why, referencing the prompts or instructions that led to the change.**
    - Example: `Added a new specification for Spotify OAuth2 authentication as requested in the prompt to document the authentication flow.`

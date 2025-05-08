@@ -1,8 +1,9 @@
 ---
 description:
-globs:
+globs: **/*.ts,**/*.tsx
 alwaysApply: false
 ---
+
 # TypeScript: No Implicit Any
 
 1. All variables, parameters, and return types must be explicitly typed or inferrable.

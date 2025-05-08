@@ -1,0 +1,46 @@
+---
+description: Prefer async/await to promise chaining
+globs: **/*.ts,**/*.tsx
+alwaysApply: false
+---
+
+# ts-prefer-async-await
+
+## Description
+Enforces the use of `async`/`await` syntax instead of direct Promise chaining (`then`/`catch`) in TypeScript files. This improves code readability, maintainability, and error handling by encouraging a modern and consistent asynchronous programming style. Applies to all TypeScript and TSX files in the project.
+
+## Rule
+Prefer using `async`/`await` syntax over direct Promise chaining (`then`/`catch`) in TypeScript, when possible.
+
+## Reasoning
+- `async`/`await` leads to more readable and maintainable code, especially for complex asynchronous flows.
+- It helps avoid deeply nested callbacks and makes error handling more straightforward with `try`/`catch`.
+- Code using `async`/`await` is easier to debug and reason about, as it appears more like synchronous code.
+
+## Bad Example
+```ts
+fetch('https://api.example.com/data')
+  .then(res => res.json())
+  .then(data => {
+    console.log(data);
+  })
+  .catch(err => {
+    console.error(err);
+  });
+```
+
+## Good Example
+```ts
+async function fetchData() {
+  try {
+    const res = await fetch('https://api.example.com/data');
+    const data = await res.json();
+    console.log(data);
+  } catch (err) {
+    console.error(err);
+  }
+}
+```
+
+## Exceptions
+- For very simple, one-off cases, Promise chaining may be acceptable, but prefer `async`/`await` for consistency.

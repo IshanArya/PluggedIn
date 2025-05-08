@@ -1,0 +1,21 @@
+---
+description: Cursor Rule YAML Header Globs Standard
+globs: "**/*.mdc"
+alwaysApply: true
+---
+# Cursor Rule YAML Header Globs Standard
+
+All Cursor rule files must have a YAML header with a `globs` field that aggressively matches the appropriate file types for the rule's domain:
+
+- **TypeScript rules**: `globs: "**/*.ts,**/*.tsx"`
+- **React/component rules**: `globs: "**/*.js,**/*.jsx,**/*.ts,**/*.tsx"`
+- **Global/project-wide rules (tooling, npm, etc.)**: `globs: "**/*.js,**/*.jsx,**/*.ts,**/*.tsx,**/*.json,**/*.yml,**/*.yaml,**/*.env,**/*.md,**/*.mdc"`
+- **Rule creation/management**: `globs: "**/*.mdc"`
+- **Other rules**: Use the most aggressive and relevant glob for the rule's domain
+
+## Enforcement
+- Always update or add the `globs` field in the YAML header when creating or editing a rule file.
+- The `globs` field must not be empty and must match the rule's intended file types.
+- This rule always applies to all `.mdc` rule files.
+- **You must modify the YAML header (metadata) using a command-line tool (e.g., `sed`). There is no other way to modify the metadata.**
+- **The command must first read the file to check if a YAML header already exists and update it if present, or insert a new header if not. Do not simply append a new header to the file.**
