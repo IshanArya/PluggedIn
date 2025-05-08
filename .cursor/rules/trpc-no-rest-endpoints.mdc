@@ -1,7 +1,7 @@
 ---
-description: Always use pure tRPC endpoints; do not add REST-style API endpoints for tRPC routers
+description: 
 globs: **/*.ts,**/*.tsx
-alwaysApply: true
+alwaysApply: false
 ---
 
 # tRPC: No REST-Style Endpoints for tRPC Routers
