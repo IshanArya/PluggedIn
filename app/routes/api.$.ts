@@ -1,5 +1,5 @@
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
-import type { Route } from './+types/trpc.$';
+import type { Route } from './+types/api.$';
 import { createContext } from '~/server/trpc';
 import { appRouter } from '~/server/router';
 
