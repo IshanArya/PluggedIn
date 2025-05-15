@@ -10,8 +10,11 @@ export default $config({
     };
   },
   async run() {
-    // const vpc = new sst.aws.Vpc("MyVpc");
-    // const database = new sst.aws.Postgres("MyDatabase", { vpc });
-    new sst.aws.React("MyWeb");
+    const vpc = new sst.aws.Vpc("MyVpc", { bastion: true });
+    const database = new sst.aws.Postgres("MyDatabase", { vpc });
+    new sst.aws.React("MyWeb", {
+      link: [database],
+      vpc
+    });
   },
 });

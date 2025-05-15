@@ -5,7 +5,7 @@ import { appRouter } from '~/server/router';
 
 const handleRequest = (args: Route.LoaderArgs | Route.ActionArgs) => {
   return fetchRequestHandler({
-    endpoint: '/trpc',
+    endpoint: '/api',
     req: args.request,
     router: appRouter,
     createContext,
