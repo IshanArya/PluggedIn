@@ -1,4 +1,5 @@
 import { Button, Container, Title } from '@mantine/core';
+import { authClient } from '~/common/authClient';
 
 const SPOTIFY_CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
 
@@ -38,11 +39,20 @@ async function generateCodeChallenge(codeVerifier: string) {
         .replace(/=+$/, '');
 }
 
+
+const signIn = async () => {
+    console.log('>>> signIn')
+    const data = await authClient.signIn.social({
+        provider: "spotify",
+        callbackURL: '/profile'
+    })
+}
+
 export default function Login() {
     return (
         <Container size="xs" py="xl">
             <Title order={2} mb="lg">Login with Spotify</Title>
-            <Button fullWidth size="md" onClick={() => redirectToAuthCodeFlow(SPOTIFY_CLIENT_ID)}>
+            <Button fullWidth size="md" onClick={() => signIn()}>
                 Connect with Spotify
             </Button>
         </Container>

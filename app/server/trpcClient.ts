@@ -9,6 +9,11 @@ export function getTrpcClient() {
     links: [
       httpBatchLink({
         url: '/api',
+        headers() {
+          const headers = new Headers()
+          headers.set('x-trpc-source', 'react')
+          return headers
+        }
       }),
     ],
   });
