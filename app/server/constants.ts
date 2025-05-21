@@ -1,5 +1,5 @@
-import { Resource } from "sst";
 import { Pool } from "pg";
+import { Resource } from "sst";
 
 export const dbPool = new Pool({
     user: Resource.MyDatabase.username,
@@ -8,4 +8,3 @@ export const dbPool = new Pool({
     host: Resource.MyDatabase.host,
     port: Resource.MyDatabase.port,
 });
-// await dbPool.connect();

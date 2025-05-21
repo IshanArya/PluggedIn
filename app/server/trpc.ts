@@ -1,7 +1,5 @@
 import { initTRPC, TRPCError } from '@trpc/server';
-import { z } from 'zod';
 import { auth } from './auth';
-import type { FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch';
 
 // Context creation (expand as needed)
 export async function createContext(req: Request) {

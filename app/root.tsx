@@ -1,3 +1,7 @@
+import { MantineProvider } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import React from 'react';
 import {
   isRouteErrorResponse,
   Links,
@@ -6,10 +10,6 @@ import {
   Scripts,
   ScrollRestoration,
 } from 'react-router';
-import { MantineProvider } from '@mantine/core';
-import { Notifications } from '@mantine/notifications';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import React from 'react';
 
 import type { Route } from './+types/root';
 import './app.css';

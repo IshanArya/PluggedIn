@@ -1,6 +1,6 @@
-import type { Route } from './+types/home';
-import { Welcome } from '../welcome/welcome';
 import { trpc } from '../client/trpcClient';
+import { Welcome } from '../welcome/welcome';
+import type { Route } from './+types/home';
 
 export function meta({}: Route.MetaArgs) {
   return [

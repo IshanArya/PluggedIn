@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
-import { Container, Card, Avatar, Text, Loader, Alert, Title, Group, CopyButton, Button } from '@mantine/core';
-import type { Route } from './+types/profile';
+import { Alert, Avatar, Button, Card, Container, CopyButton, Group, Text, Title } from '@mantine/core';
 import { caller } from '~/server/trpcServer';
+import type { Route } from './+types/profile';
 
 
 export async function loader(loaderArgs: Route.LoaderArgs) {
