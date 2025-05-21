@@ -11,7 +11,7 @@ export const auth = betterAuth({
     },
     trustedOrigins: [
         'http://localhost',
-        'http://127.0.0.1'
+        'http://127.0.0.1:5173'
     ],
     socialProviders: {
         spotify: {

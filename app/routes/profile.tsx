@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Container, Card, Avatar, Text, Loader, Alert, Title, Group, CopyButton, Button } from '@mantine/core';
 import type { Route } from './+types/profile';
-import { trpc } from '~/server/trpcClient';
-import { caller } from '~/common/trpcClient';
+import { trpc } from '~/client/trpcClient';
 
 interface SpotifyProfile {
     display_name: string;
@@ -14,9 +13,11 @@ interface SpotifyProfile {
 
 export async function loader(loaderArgs: Route.LoaderArgs) {
     // Use the server-side tRPC caller to fetch the user
-    const api = await caller(loaderArgs);
-    const user = await api.loader.greeting();
-    return user;
+    console.log('>>> loader', loaderArgs);
+    // const api = await caller(loaderArgs);
+    // const user = await api.loader.greeting();
+    // return user;
+    return null;
 }
 
 export default function Profile({ loaderData: user }: Route.ComponentProps & {

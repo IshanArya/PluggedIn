@@ -1,15 +1,31 @@
-import { type LoaderFunctionArgs } from 'react-router'
-import { appRouter } from '~/server/router'
-import { createCallerFactory, createContext } from '~/server/trpc'
+import { createTRPCReact } from '@trpc/react-query';
+import { httpBatchLink } from '@trpc/client';
+import { appRouter, type AppRouter } from '~/server/router'
+import type { FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch';
+import { createCallerFactory, createContext } from '~/server/trpc';
 
-const createTRPCContext = (opts: { headers: Headers }) => {
-    const headers = new Headers(opts.headers)
-    headers.set('x-trpc-source', 'server-loader')
-    return createContext({
-        headers
-    })
+export const trpc = createTRPCReact<AppRouter>();
+
+export function getTrpcClient() {
+    return trpc.createClient({
+        links: [
+            httpBatchLink({
+                url: '/api',
+                headers() {
+                    const headers = new Headers()
+                    headers.set('x-trpc-source', 'react')
+                    return headers
+                }
+            }),
+        ],
+    });
+}
+
+const createTRPCContext = (ctx: FetchCreateContextFnOptions) => {
+    ctx.req.headers.set('x-trpc-source', 'server-loader')
+    return createContext(ctx)
 }
 
 const createCaller = createCallerFactory(appRouter)
 export const caller = async (loaderArgs: LoaderFunctionArgs) =>
-    createCaller(await createTRPCContext({ headers: loaderArgs.request.headers }))
+    createCaller(await createTRPCContext(loaderArgs))

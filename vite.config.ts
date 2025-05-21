@@ -5,11 +5,11 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
-  build: {
-    rollupOptions: {
-      external: ['cloudflare:sockets'],
-    },
-  },
+  // build: {
+  //   rollupOptions: {
+  //     external: ['cloudflare:sockets'],
+  //   },
+  // },
   server: {
     host: '127.0.0.1',
   },

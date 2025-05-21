@@ -8,12 +8,13 @@ import {
 } from 'react-router';
 import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
-import { trpc, getTrpcClient } from './server/trpcClient';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 
 import type { Route } from './+types/root';
 import './app.css';
+import { getTrpcClient, trpc } from './client/trpcClient';
+// import { getTrpcClient, trpc } from './server/trpcClient';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -31,6 +32,18 @@ export const links: Route.LinksFunction = () => [
 export function Layout({ children }: { children: React.ReactNode }) {
   const [queryClient] = React.useState(() => new QueryClient());
   const [trpcClient] = React.useState(() => getTrpcClient());
+  // const [trpcClient] = React.useState(() => trpc.createClient({
+  //   links: [
+  //     httpBatchLink({
+  //       url: '/api',
+  //       headers() {
+  //         const headers = new Headers()
+  //         headers.set('x-trpc-source', 'react')
+  //         return headers
+  //       }
+  //     }),
+  //   ],
+  // }));
   return (
     <html lang="en">
       <head>

@@ -8,10 +8,8 @@ const handleRequest = (args: Route.LoaderArgs | Route.ActionArgs) => {
     endpoint: '/api',
     req: args.request,
     router: appRouter,
-    createContext: () =>
-      createContext({
-        headers: args.request.headers
-      })
+    createContext: () => createContext(args.request)
+
   });
 };
 

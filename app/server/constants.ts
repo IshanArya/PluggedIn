@@ -8,4 +8,4 @@ export const dbPool = new Pool({
     host: Resource.MyDatabase.host,
     port: Resource.MyDatabase.port,
 });
-await dbPool.connect();
+// await dbPool.connect();
