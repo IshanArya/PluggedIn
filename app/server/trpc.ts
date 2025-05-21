@@ -1,14 +1,17 @@
 import { initTRPC, TRPCError } from '@trpc/server';
 import { z } from 'zod';
 import { auth } from './auth';
+import type { FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch';
 
 // Context creation (expand as needed)
-export async function createContext(opts: { headers: Headers }) {
+export async function createContext(req: Request) {
+  console.log('>>> createContext', req);
   const authSession = await auth.api.getSession({
-    headers: opts.headers
+    headers: req.headers
   })
-  const source = opts.headers.get('x-trpc-source') ?? 'unknown'
+  const source = req.headers.get('x-trpc-source') ?? 'unknown'
   console.log('>>> tRPC Request from', source, 'by', authSession?.user.email)
+  console.log('>>> authSession', authSession)
 
 
   return {
@@ -27,6 +30,8 @@ const isAuthed = t.middleware(({ ctx, next }) => {
 });
 
 export const createCallerFactory = t.createCallerFactory
+
+
 const publicProcedure = t.procedure;
 const authProcedure = publicProcedure.use(isAuthed);
 

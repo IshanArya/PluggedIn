@@ -8,12 +8,12 @@ import {
 } from 'react-router';
 import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
-import { trpc, getTrpcClient } from './server/trpcClient';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 
 import type { Route } from './+types/root';
 import './app.css';
+import { getTrpcClient, trpc } from './client/trpcClient';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
