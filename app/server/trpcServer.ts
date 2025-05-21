@@ -1,4 +1,3 @@
-import type { FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch';
 import { createContext } from '~/server/trpc';
 import { createCallerFactory } from '~/server/trpc';
 import { appRouter } from '~/server/router';

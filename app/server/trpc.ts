@@ -11,6 +11,7 @@ export async function createContext(req: Request) {
   })
   const source = req.headers.get('x-trpc-source') ?? 'unknown'
   console.log('>>> tRPC Request from', source, 'by', authSession?.user.email)
+  console.log('>>> authSession', authSession)
 
 
   return {

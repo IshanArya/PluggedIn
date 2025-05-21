@@ -19,5 +19,9 @@ export const auth = betterAuth({
             clientSecret: process.env.SPOTIFY_CLIENT_SECRET as string,
             redirectURI: 'http://127.0.0.1:5173/api/auth/callback/spotify'
         }
+    },
+    session: {
+        updateAge: 60 * 60 * 24, // 1 day
+        freshAge: 60 * 5 // 5 minutes
     }
 })
