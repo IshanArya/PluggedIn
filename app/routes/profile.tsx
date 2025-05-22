@@ -1,4 +1,5 @@
 import { Alert, Avatar, Button, Card, Container, CopyButton, Group, Text, Title } from '@mantine/core';
+import type { TrpcContext } from '~/common/models';
 import { useSpotifyProfile } from '~/hooks/spotifyHooks';
 import { caller } from '~/server/trpcServer';
 import type { Route } from './+types/profile';
@@ -12,7 +13,7 @@ export async function loader(loaderArgs: Route.LoaderArgs) {
     return session;
 }
 
-export default function Profile({ loaderData: session }: Route.ComponentProps & any) {
+export default function Profile({ loaderData: session }: Route.ComponentProps & TrpcContext) {
     console.log('>>> session', session);
     const { profile, loading, error } = useSpotifyProfile(session?.token);
 

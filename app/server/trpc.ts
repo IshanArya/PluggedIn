@@ -1,8 +1,9 @@
 import { initTRPC, TRPCError } from '@trpc/server';
+import type { TrpcContext } from '~/common/models';
 import { auth } from './auth';
 
 // Context creation (expand as needed)
-export async function createContext(req: Request) {
+export async function createContext(req: Request): Promise<TrpcContext> {
   console.log('>>> createContext', req);
   const authSession = await auth.api.getSession({
     headers: req.headers
@@ -27,7 +28,7 @@ type Context = Awaited<ReturnType<typeof createContext>>;
 
 export const t = initTRPC.context<Context>().create();
 
-const isAuthed = t.middleware(({ ctx, next }) => {
+const isAuthed = t.middleware(({ ctx, next }: { ctx: TrpcContext; next: any }) => {
   if (!ctx.session) {
     throw new TRPCError({ code: "UNAUTHORIZED", message: "please login" });
   }

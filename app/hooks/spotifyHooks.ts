@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
+import type { SocialToken } from '~/common/models';
 
-export async function fetchProfile(token: any): Promise<any> {
+export async function fetchProfile(token: string): Promise<any> {
     const res = await fetch('https://api.spotify.com/v1/me', {
         headers: {
-            Authorization: `Bearer ${token.accessToken}`,
+            Authorization: `Bearer ${token}`,
         },
     });
     if (!res.ok) {
@@ -21,21 +22,21 @@ export async function fetchProfile(token: any): Promise<any> {
     };
 }
 
-export function useSpotifyProfile(token?: string | null) {
+export function useSpotifyProfile(token: SocialToken) {
     console.log('>>> token', token);
     const [profile, setProfile] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        if (!token) {
+        if (!token.accessToken) {
             setLoading(false);
             setError('No access token found. Please log in.');
             return;
         }
         setLoading(true);
         setError(null);
-        fetchProfile(token)
+        fetchProfile(token.accessToken)
             .then(setProfile)
             .catch((e) => setError(e.message || 'Unknown error'))
             .finally(() => setLoading(false));
