@@ -1,4 +1,4 @@
-import { MantineProvider } from '@mantine/core';
+import { AppShell, MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
@@ -14,6 +14,8 @@ import {
 import type { Route } from './+types/root';
 import './app.css';
 import { getTrpcClient, trpc } from './client/trpcClient';
+import { FooterContent } from './components/FooterContent';
+import { HeaderContent } from './components/HeaderContent';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -43,7 +45,23 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <MantineProvider>
           <Notifications />
           <trpc.Provider client={trpcClient} queryClient={queryClient}>
-            <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+            <QueryClientProvider client={queryClient}>
+              <AppShell
+                header={{ height: 60 }}
+                footer={{ height: 48 }}
+                padding="md"
+              >
+                <AppShell.Header>
+                  <HeaderContent />
+                </AppShell.Header>
+                <AppShell.Main>
+                  {children}
+                </AppShell.Main>
+                <AppShell.Footer>
+                  <FooterContent />
+                </AppShell.Footer>
+              </AppShell>
+            </QueryClientProvider>
           </trpc.Provider>
         </MantineProvider>
         <ScrollRestoration />
