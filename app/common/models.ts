@@ -20,7 +20,7 @@ export type TrpcContext = {
             image?: string | null | undefined | undefined;
         } | null,
     } | null,
-    token: {
+    token?: {
         accessToken: string | undefined;
         accessTokenExpiresAt: Date | undefined;
         scopes: string[];

@@ -29,7 +29,7 @@ export function useSpotifyProfile(token: SocialToken) {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        if (!token.accessToken) {
+        if (!token?.accessToken) {
             setLoading(false);
             setError('No access token found. Please log in.');
             return;

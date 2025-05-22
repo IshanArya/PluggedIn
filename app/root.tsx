@@ -9,6 +9,8 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
+  type LoaderFunctionArgs,
 } from 'react-router';
 
 import type { Route } from './+types/root';
@@ -16,6 +18,7 @@ import './app.css';
 import { getTrpcClient, trpc } from './client/trpcClient';
 import { FooterContent } from './components/FooterContent';
 import { HeaderContent } from './components/HeaderContent';
+import { caller } from './server/trpcServer';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -30,9 +33,22 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
-export function Layout({ children }: { children: React.ReactNode }) {
+// Loader to fetch user info from the tRPC endpoint (SSR)
+export async function loader(args: LoaderFunctionArgs) {
+  const api = await caller(args);
+  const { user } = await api.loader.user();
+  console.log(">>> user:", user);
+  return { user };
+}
+
+type User = { name: string; email: string } | null;
+
+export function Layout() {
   const [queryClient] = React.useState(() => new QueryClient());
   const [trpcClient] = React.useState(() => getTrpcClient());
+  const data = useLoaderData<typeof loader>();
+  const user = data == null ? undefined : data.user;
+  // console.log("user:", user);
   return (
     <html lang="en">
       <head>
@@ -46,16 +62,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <Notifications />
           <trpc.Provider client={trpcClient} queryClient={queryClient}>
             <QueryClientProvider client={queryClient}>
-              <AppShell
-                header={{ height: 60 }}
-                footer={{ height: 48 }}
-                padding="md"
-              >
+              <AppShell header={{ height: 60 }} footer={{ height: 48 }} padding="md">
                 <AppShell.Header>
-                  <HeaderContent />
+                  <HeaderContent user={user} />
                 </AppShell.Header>
                 <AppShell.Main>
-                  {children}
+                  <Outlet />
                 </AppShell.Main>
                 <AppShell.Footer>
                   <FooterContent />

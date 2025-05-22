@@ -8,15 +8,17 @@ export async function createContext(req: Request): Promise<TrpcContext> {
   const authSession = await auth.api.getSession({
     headers: req.headers
   })
-  const authToken = await auth.api.getAccessToken({
-    body: {
-      providerId: 'spotify',
-    },
-    headers: req.headers
-  })
+  let authToken = undefined;
+  if (authSession) {
+    authToken = await auth.api.getAccessToken({
+      body: {
+        providerId: 'spotify',
+      },
+      headers: req.headers
+    })
+  }
   const source = req.headers.get('x-trpc-source') ?? 'unknown'
   console.log('>>> tRPC Request from', source, 'by', authSession?.user.email)
-  console.log('>>> authSession', authSession)
 
 
   return {
