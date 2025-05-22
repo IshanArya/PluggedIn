@@ -24,21 +24,23 @@ This document outlines the step-by-step plan to add Spotify login functionality 
 - This loader will return the current user's information (e.g., name, email) from the session.
 - The loader will use the context/session as set up in `app/server/trpc.ts`.
 
-### 5. Fetch User Info in Header (SSR)
-- Fetch user info from the loader to enable server-side rendering (SSR) of the header.
-- Use a data fetching hook (e.g., useLoaderData) in the header to get the user info from the loader.
-- Conditionally render the login button or user name based on the fetched data.
+### 5. Use a React Router Layout for SSR User State
+- Create a top-level React Router layout route (e.g., `app/routes/__header.tsx`) with a loader that fetches user info from the tRPC endpoint on the server.
+- Provide this user info to the header (and any children) via `useLoaderData`, ensuring the login state is available at render time (SSR).
+- The header should use this loader data to conditionally render the login button or user name.
+- Do not rely solely on client-side tRPC queries for login state in the header.
 
 ## Relevant Files
 - `app/components/HeaderContent.tsx`
-- `app/components/LoginButton.tsx` (to be created)
+- `app/components/LoginButton.tsx`
 - `app/routes/login.tsx`
-- `app/server/router/loader/user.ts` (to be created)
+- `app/server/router/loader/user.ts`
 - `app/server/trpc.ts`
+- `app/routes/__header.tsx` (to be created)
 - `SPECS.md`
 
 ## Acceptance Criteria
 - The header displays a "LogIn with Spotify" button if the user is not logged in.
 - Clicking the button initiates the Spotify login flow.
 - After login, the header displays the user's name.
-- User info is fetched securely from the backend and supports SSR. 
+- User info is fetched securely from the backend and supports SSR via a React Router layout/loader. 
