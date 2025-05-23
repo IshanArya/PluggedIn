@@ -16,11 +16,10 @@
 
 - Create a new type in `app/common/models.ts` (e.g., `SpotifyCurrentPlayingState`).
 - The type should include:
-  - `user`: Basic user info (id, name, email, etc.)
-  - `track`: Track name, id, artists, duration, etc.
-  - `albumArtworkUrl`: URL to the album artwork image.
+  - `track?`: Track name, id, duration, and artist information (if playing).
+  - `albumArtworkUrl?`: URL to the album artwork image.
   - `isPlaying`: Boolean indicating if something is currently playing.
-  - `progressMs`: Current progress in milliseconds.
+  - `progressMs?`: Current progress in milliseconds.
 
 ### 2.2. Implement Loader Endpoint
 
@@ -39,13 +38,7 @@
 ### 2.4. Error Handling
 
 - If the user is not authenticated or has no Spotify token, return an appropriate error.
-- If nothing is currently playing, return a response with `isPlaying: false` and other fields as `null` or empty.
-
-### 2.5. Testing
-
-- Add unit tests/mocks for the loader to verify:
-  - Correct mapping of Spotify API response.
-  - Proper error handling for unauthenticated users and no track playing.
+- If nothing is currently playing, return a response with `isPlaying: false` and other fields omitted.
 
 ---
 
@@ -53,21 +46,15 @@
 
 ```typescript
 export type SpotifyCurrentPlayingState = {
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    image?: string | null;
-  };
-  track: {
+  track?: {
     id: string;
     name: string;
     artists: string[];
     durationMs: number;
-  } | null;
-  albumArtworkUrl: string | null;
+  };
+  albumArtworkUrl?: string;
   isPlaying: boolean;
-  progressMs: number | null;
+  progressMs?: number;
 };
 ```
 
@@ -77,12 +64,6 @@ export type SpotifyCurrentPlayingState = {
 
 ```json
 {
-  "user": {
-    "id": "user123",
-    "name": "Alice",
-    "email": "alice@example.com",
-    "image": "https://..."
-  },
   "track": {
     "id": "track456",
     "name": "Song Title",
