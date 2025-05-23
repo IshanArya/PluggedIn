@@ -17,7 +17,8 @@ export const auth = betterAuth({
         spotify: {
             clientId: process.env.VITE_SPOTIFY_CLIENT_ID as string,
             clientSecret: process.env.SPOTIFY_CLIENT_SECRET as string,
-            redirectURI: 'http://127.0.0.1:5173/api/auth/callback/spotify'
+            redirectURI: 'http://127.0.0.1:5173/api/auth/callback/spotify',
+            scope: ['user-read-currently-playing', 'user-read-playback-state']
         }
     },
     session: {
