@@ -1,0 +1,26 @@
+---
+description: 
+globs: **/*.ts,**/*.tsx
+alwaysApply: false
+---
+# TypeScript: Prefer Optional Operator (`?`) Over `| null`
+
+1. When defining object types, prefer using the optional property operator (`?`) instead of making properties required and using `| null`.
+2. This leads to cleaner, more idiomatic TypeScript and avoids unnecessary null checks.
+
+## Good
+```typescript
+interface User {
+  name?: string;
+}
+```
+
+## Bad
+```typescript
+interface User {
+  name: string | null;
+}
+```
+
+- Use `?` for properties that may be omitted.
+- Only use `| null` if you specifically need to distinguish between `undefined` (missing) and `null` (explicitly set to null).

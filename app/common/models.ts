@@ -30,3 +30,15 @@ export type TrpcContext = {
 }
 
 export type SocialToken = TrpcContext['token']
+
+export type SpotifyCurrentPlayingState = {
+    track?: {
+        id: string;
+        name: string;
+        artists: string[];
+        durationMs: number;
+    };
+    albumArtworkUrl?: string;
+    isPlaying: boolean;
+    progressMs?: number;
+};

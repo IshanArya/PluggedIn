@@ -1,4 +1,5 @@
 import { Alert, Avatar, Button, Card, Container, CopyButton, Group, Text, Title } from '@mantine/core';
+import { trpc } from '~/client/trpcClient';
 import type { TrpcContext } from '~/common/models';
 import { useSpotifyProfile } from '~/hooks/spotifyHooks';
 import { caller } from '~/server/trpcServer';
@@ -16,6 +17,11 @@ export async function loader(loaderArgs: Route.LoaderArgs) {
 export default function Profile({ loaderData: session }: Route.ComponentProps & TrpcContext) {
     console.log('>>> session', session);
     const { profile, loading, error } = useSpotifyProfile(session?.token);
+
+    // Call the tRPC endpoint and log the output
+    const currentlyPlayingQuery = trpc.loader.spotify.getCurrentUserPlayingState.useQuery();
+    console.log('>>> currentlyPlayingQuery', currentlyPlayingQuery);
+    console.log('>>> currentlyPlayingQuery', currentlyPlayingQuery.data);
 
     if (loading) {
         return (
