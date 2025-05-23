@@ -8,6 +8,9 @@ export const appRouter = t.router({
     hello,
     greeting,
     user,
+    spotify: t.router({
+
+    }),
   }),
   action: t.router({
   }),

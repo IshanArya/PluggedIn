@@ -1,0 +1,14 @@
+---
+description: Ensures every new spec is added to the specs/ folder and linked in SPECS.md, maintaining consistent documentation and easy discoverability across the project.
+globs: 
+alwaysApply: false
+---
+# Spec Creation and Linking Rule
+
+Whenever a new specification (spec) is written for this project:
+
+1. The spec **must** be added to the [`specs/`](mdc:specs) folder as a markdown file.
+2. The spec **must** be linked in the main table in [`SPECS.md`](mdc:SPECS.md) with an appropriate description and file link.
+3. The link should follow the format and conventions already present in the table.
+
+This ensures all specs are discoverable and consistently documented in the project.
