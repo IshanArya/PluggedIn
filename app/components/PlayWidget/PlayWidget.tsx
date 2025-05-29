@@ -1,5 +1,5 @@
 import { Button, Card, Center, Group, Loader, Stack, Text } from '@mantine/core';
-import { IconMusic, IconPlayerPause, IconPlayerPlay } from '@tabler/icons-react';
+import { IconBrandSpotifyFilled, IconMusic, IconPlayerPause, IconPlayerPlay } from '@tabler/icons-react';
 import type { SpotifyCurrentPlayingState } from '~/common/models';
 import { AlbumArtwork } from './AlbumArtwork';
 import { ProgressBar } from './ProgressBar';
@@ -67,6 +67,14 @@ export function PlayWidget({ data, progress, loading, error, onRetry }: PlayWidg
 
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>
+            {data.device && (
+                <Group mb="xs" gap="xs">
+                    <IconBrandSpotifyFilled size={16} color="var(--mantine-color-green-6)" />
+                    <Text size="xs" c="dimmed">
+                        Playing on {data.device.name}
+                    </Text>
+                </Group>
+            )}
             <Group align="flex-start" gap="md">
                 <AlbumArtwork
                     src={data.albumArtworkUrl}

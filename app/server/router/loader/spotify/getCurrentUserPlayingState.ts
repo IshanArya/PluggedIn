@@ -8,7 +8,7 @@ export const getCurrentUserPlayingState = p.auth.query(async ({ ctx }): Promise<
     }
 
     try {
-        const res = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
+        const res = await fetch('https://api.spotify.com/v1/me/player', {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },
@@ -47,6 +47,10 @@ export const getCurrentUserPlayingState = p.auth.query(async ({ ctx }): Promise<
             albumArtworkUrl,
             isPlaying: data.is_playing ?? false,
             progressMs: data.progress_ms,
+            device: data.device ? {
+                name: data.device.name,
+                type: data.device.type,
+            } : undefined,
         };
     } catch (err) {
         // TODO: Refine error handling, add Zod validation per trpc-best-practices

@@ -41,4 +41,8 @@ export type SpotifyCurrentPlayingState = {
     albumArtworkUrl?: string;
     isPlaying: boolean;
     progressMs?: number;
+    device?: {
+        name: string;
+        type: string;
+    };
 };
