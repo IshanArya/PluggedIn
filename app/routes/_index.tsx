@@ -1,9 +1,8 @@
-import { Container, Stack } from '@mantine/core';
-import { useLoaderData, type LoaderFunctionArgs } from 'react-router';
+import { Stack } from '@mantine/core';
+import { redirect, type LoaderFunctionArgs } from 'react-router';
 import { CTASection } from '../components/CTASection';
 import { FeaturesSection } from '../components/FeaturesSection';
 import { HeroSection } from '../components/HeroSection';
-import { PlayWidgetContainer } from '../components/PlayWidget';
 import { TestimonialsSection } from '../components/TestimonialsSection';
 import { caller } from '../server/trpcServer';
 import type { Route } from './+types/_index';
@@ -15,14 +14,19 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
-// Loader to check authentication state server-side
+// Loader to check authentication state and redirect if authenticated
 export async function loader(args: LoaderFunctionArgs) {
   const api = await caller(args);
   const { user } = await api.loader.user();
 
+  // Redirect authenticated users to dashboard
+  if (user) {
+    throw redirect('/dashboard');
+  }
+
   return {
-    isAuthenticated: Boolean(user),
-    user,
+    isAuthenticated: false,
+    user: null,
   };
 }
 
@@ -37,20 +41,6 @@ function LandingPageView() {
   );
 }
 
-function PlayWidgetView() {
-  return (
-    <Container size="sm" py="xl">
-      <PlayWidgetContainer />
-    </Container>
-  );
-}
-
 export default function Home() {
-  const { isAuthenticated } = useLoaderData<typeof loader>();
-
-  if (isAuthenticated) {
-    return <PlayWidgetView />;
-  }
-
   return <LandingPageView />;
 }

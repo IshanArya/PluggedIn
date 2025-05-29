@@ -44,7 +44,7 @@ const signIn = async () => {
     console.log('>>> signIn')
     const data = await authClient.signIn.social({
         provider: "spotify",
-        callbackURL: '/profile'
+        callbackURL: '/dashboard'
     })
 }
 
