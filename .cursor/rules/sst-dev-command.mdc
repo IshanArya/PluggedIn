@@ -1,5 +1,5 @@
 ---
-description: Use the npx sst dev command to start the app in development mode with full SST integration, enabling hot reloading and local testing of all features. This is the recommended way to run the app during development.
+description: Use `npx sst dev` to start the app in development mode with full SST integration. Always check if a dev server is already running (default port 5173) before starting a new one. Use this rule whenever you want to run the app locally for development, testing, or infrastructure changes.
 globs: 
 alwaysApply: false
 ---
@@ -10,20 +10,37 @@ alwaysApply: false
 - This command should be used whenever you want to run the app locally with hot reloading and full SST integration (including serverless, API, and frontend).
 - Do **not** use `npm run dev` or other dev commands unless specifically instructed for a different context.
 
+## Before Starting
+- **Always check if a development server is already running** before starting a new one.
+- Look for existing terminal sessions/processes that might be running `sst dev`.
+- Check if ports are already in use (typically 5173, 5174, etc.).
+- If a server is already running, use that instance instead of starting a new one.
+- Starting multiple dev servers can cause port conflicts and unexpected behavior.
+
 ## How to Start
-1. Open your terminal and navigate to the project root directory.
-2. Run:
+1. **Check for existing servers first:**
+   - Look for running terminal sessions with `sst dev`
+   - Check if the expected URLs are already accessible in your browser
+   - If unsure, try visiting `http://localhost:5173` or similar ports
+
+2. If no server is running, open your terminal and navigate to the project root directory.
+
+3. Run:
    ```sh
    npx sst dev
    ```
-3. The app will start with hot reloading and all SST features enabled.
+
+4. The app will start with hot reloading and all SST features enabled.
 
 ## Notes
-- The app will be available at the local URL printed in the terminal (commonly `http://localhost:3000` or similar).
+- The app will be available at the local URL printed in the terminal (commonly `http://localhost:5173` or similar).
 - This is the recommended way to develop and test the full stack of the application.
 - If you make changes to infrastructure or serverless code, `sst dev` will automatically reload as needed.
+- **Only run one `sst dev` instance at a time** to avoid conflicts.
 
 ## Example
 ```sh
+# First, check if server is already running
+# If not, then start:
 npx sst dev
 ```
