@@ -67,7 +67,11 @@ export function Layout() {
           <Notifications />
           <trpc.Provider client={trpcClient} queryClient={queryClient}>
             <QueryClientProvider client={queryClient}>
-              <AppShell header={{ height: 60 }} padding={0}>
+              <AppShell
+                header={{ height: 60 }}
+                footer={{ height: 50 }}
+                padding={0}
+              >
                 <AppShell.Header>
                   <HeaderContent user={user} />
                 </AppShell.Header>

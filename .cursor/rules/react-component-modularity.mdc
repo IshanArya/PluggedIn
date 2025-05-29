@@ -121,6 +121,36 @@ function PlayWidget() {
 }
 ```
 
+### 4. React Router Loaders for Server-Side Logic
+```tsx
+// Good: Use loaders for authentication and server-side data
+export async function loader(args: LoaderFunctionArgs) {
+  const api = await caller(args);
+  const { user } = await api.loader.user();
+  
+  return {
+    isAuthenticated: Boolean(user),
+    user,
+  };
+}
+
+function HomePage() {
+  const { isAuthenticated } = useLoaderData<typeof loader>();
+  
+  if (isAuthenticated) {
+    return <PlayWidgetView />;
+  }
+  
+  return <LandingPageView />;
+}
+
+// Bad: Client-side authentication checks
+function HomePage() {
+  const { isAuthenticated } = useAuth(); // Avoid client-side auth checks
+  // ...
+}
+```
+
 ## Component Communication
 
 ### Props Interface Design
@@ -188,6 +218,7 @@ describe('PlayWidget', () => {
 3. **Mixed Concerns**: Business logic mixed with presentation
 4. **Tight Coupling**: Components that know too much about each other
 5. **No Abstraction**: Repeating similar UI patterns instead of extracting components
+6. **Client-Side Auth**: Using client-side hooks for authentication when loaders are more appropriate
 
 ## Benefits of Modular Design
 
@@ -196,3 +227,4 @@ describe('PlayWidget', () => {
 - **Testability**: Smaller components are easier to test thoroughly
 - **Collaboration**: Team members can work on different components simultaneously
 - **Performance**: Better code splitting and lazy loading opportunities
+- **SSR Compatibility**: Proper separation enables better server-side rendering
