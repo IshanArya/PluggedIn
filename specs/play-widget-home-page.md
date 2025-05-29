@@ -31,7 +31,7 @@ The Play Widget should display:
 
 - **Initial Load:** Fetch current playing state from tRPC endpoint
 - **Progress Animation:** Update progress bar every second on the client-side
-- **Periodic Refresh:** Refresh data from backend every 30 seconds to handle track changes
+- **Periodic Refresh:** Refresh data from backend every 3 seconds to handle track changes
 - **API Rate Limiting:** Minimize calls to Spotify API through smart caching
 
 ### 2.4. Error Handling
@@ -72,7 +72,7 @@ _index.tsx (Layout)
 
 #### `useCurrentlyPlaying()`
 - Calls tRPC `getCurrentUserPlayingState` endpoint
-- Refreshes every 30 seconds
+- Refreshes every 3 seconds
 - Handles loading and error states
 - Returns current playing state data
 
@@ -95,7 +95,7 @@ _index.tsx (Layout)
    - Continue until track ends or new data received
 
 3. **Periodic Refresh:**
-   - Fetch new data every 30 seconds
+   - Fetch new data every 3 seconds
    - Update Play Widget if track changed
    - Reset progress timer with new data
 
@@ -182,7 +182,7 @@ _index.tsx (Layout)
 ## 6. Performance Considerations
 
 ### 6.1. API Rate Limiting
-- Limit backend calls to every 30 seconds
+- Limit backend calls to every 3 seconds
 - Use client-side calculations for progress updates
 - Cache responses appropriately
 
