@@ -7,7 +7,7 @@ type LoginButtonProps = {
     callbackURL?: string;
 };
 
-export function LoginButton({ provider = 'spotify', callbackURL = '/profile' }: LoginButtonProps) {
+export function LoginButton({ provider = 'spotify', callbackURL = '/dashboard' }: LoginButtonProps) {
     const handleLogin = async () => {
         await authClient.signIn.social({
             provider,
