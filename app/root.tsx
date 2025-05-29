@@ -75,7 +75,14 @@ export function Layout() {
                 <AppShell.Header>
                   <HeaderContent user={user} />
                 </AppShell.Header>
-                <AppShell.Main>
+                <AppShell.Main
+                  style={{
+                    marginTop: '60px',
+                    marginBottom: '50px',
+                    padding: 'var(--mantine-spacing-md)',
+                    minHeight: 'calc(100vh - 110px)', // 60px header + 50px footer
+                  }}
+                >
                   <Outlet />
                 </AppShell.Main>
                 <AppShell.Footer>
