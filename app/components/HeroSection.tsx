@@ -4,7 +4,7 @@ import { LoginButton } from './LoginButton';
 
 export function HeroSection() {
     return (
-        <Container size="lg" py="xl">
+        <Container size="lg" py="xl" pt={80}>
             <Stack align="center" gap="xl" ta="center">
                 <Group gap="sm" justify="center">
                     <IconMusic size={32} stroke={1.5} />
