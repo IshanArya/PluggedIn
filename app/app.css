@@ -1,3 +1,5 @@
+@import '@mantine/core/styles.css';
+@import '@mantine/notifications/styles.css';
 @import 'tailwindcss';
 
 @theme {
@@ -6,6 +8,7 @@
     'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
+/* Reset Tailwind's base styles that might conflict with Mantine */
 html,
 body {
   @apply bg-white dark:bg-gray-950;
@@ -13,4 +16,9 @@ body {
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+}
+
+/* Ensure Mantine components have proper styling */
+.mantine-AppShell-main {
+  padding: 0 !important;
 }

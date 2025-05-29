@@ -22,6 +22,7 @@
     "@react-router/node": "^7.5.3",
     "@react-router/serve": "^7.5.3",
     "@spotify/web-api-ts-sdk": "^1.2.0",
+    "@tabler/icons-react": "^3.33.0",
     "@tanstack/react-query": "^5.75.4",
     "@trpc/client": "^11.1.2",
     "@trpc/react-query": "^11.1.2",

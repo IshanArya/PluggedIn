@@ -1,20 +1,24 @@
-import { trpc } from '../client/trpcClient';
-import { Welcome } from '../welcome/welcome';
+import { Stack } from '@mantine/core';
+import { CTASection } from '../components/CTASection';
+import { FeaturesSection } from '../components/FeaturesSection';
+import { HeroSection } from '../components/HeroSection';
+import { TestimonialsSection } from '../components/TestimonialsSection';
 import type { Route } from './+types/home';
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: 'New React Router App' },
-    { name: 'description', content: 'Welcome to React Router!' },
+    { title: 'PluggedIn - Connect Through Music' },
+    { name: 'description', content: 'Share music with friends, sync listening experiences, and discover new songs through your social network on Spotify.' },
   ];
 }
 
 export default function Home() {
-  const { data, isLoading } = trpc.loader.hello.useQuery({ name: 'PluggedIn' });
   return (
-    <div>
-      <Welcome />
-      <div className="mt-4">{isLoading ? 'Loading greeting...' : data?.greeting}</div>
-    </div>
+    <Stack gap={0}>
+      <HeroSection />
+      <FeaturesSection />
+      <TestimonialsSection />
+      <CTASection />
+    </Stack>
   );
 }
