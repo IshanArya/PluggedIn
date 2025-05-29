@@ -1,0 +1,198 @@
+---
+description: 
+globs: **/*.tsx,**/*.jsx
+alwaysApply: false
+---
+# React: Modular Component Design
+
+## Core Principles
+
+1. **Single Responsibility**: Each component should have one clear purpose and do it well.
+2. **Composition over Inheritance**: Build complex UIs by composing smaller, focused components.
+3. **Separation of Concerns**: Keep business logic, presentation, and state management separate.
+4. **Reusability**: Design components to be reusable across different contexts.
+
+## Component Structure Guidelines
+
+### Break Down Complex Components
+```tsx
+// Good: Modular breakdown
+function PlayWidget() {
+  return (
+    <PlayWidgetCard>
+      <AlbumArtwork src={albumUrl} />
+      <TrackInfo title={title} artists={artists} />
+      <ProgressBar progress={progress} duration={duration} />
+    </PlayWidgetCard>
+  );
+}
+
+// Bad: Monolithic component
+function PlayWidget() {
+  return (
+    <Card>
+      <div className="album-art">...</div>
+      <div className="track-info">...</div>
+      <div className="progress-bar">...</div>
+      {/* All logic mixed together */}
+    </Card>
+  );
+}
+```
+
+### Component Size Limits
+- Keep components under 150 lines when possible
+- If a component grows larger, identify extraction opportunities
+- Extract custom hooks for complex logic ([useCurrentlyPlaying](mdc:app/hooks/useCurrentlyPlaying.ts), [useProgressTimer](mdc:app/hooks/useProgressTimer.ts))
+
+### File Organization
+```
+app/components/
+├── PlayWidget/
+│   ├── index.ts          // Barrel export
+│   ├── PlayWidget.tsx    // Main component
+│   ├── AlbumArtwork.tsx  // Sub-component
+│   ├── TrackInfo.tsx     // Sub-component
+│   └── ProgressBar.tsx   // Sub-component
+```
+
+## Modularity Patterns
+
+### 1. Container vs Presentation Components
+```tsx
+// Container Component (data logic)
+function PlayWidgetContainer() {
+  const { data, loading, error } = useCurrentlyPlaying();
+  const progress = useProgressTimer(data);
+  
+  if (loading) return <PlayWidgetSkeleton />;
+  if (error) return <PlayWidgetError onRetry={refetch} />;
+  
+  return <PlayWidget data={data} progress={progress} />;
+}
+
+// Presentation Component (UI only)
+function PlayWidget({ data, progress }: PlayWidgetProps) {
+  return (
+    <PlayWidgetCard>
+      <AlbumArtwork src={data.albumArtworkUrl} />
+      <TrackInfo track={data.track} />
+      <ProgressBar value={progress} max={data.track.durationMs} />
+    </PlayWidgetCard>
+  );
+}
+```
+
+### 2. Compound Component Pattern
+```tsx
+// Export as compound component
+export const PlayWidget = {
+  Root: PlayWidgetCard,
+  Artwork: AlbumArtwork,
+  TrackInfo: TrackInfo,
+  ProgressBar: ProgressBar,
+};
+
+// Usage
+<PlayWidget.Root>
+  <PlayWidget.Artwork src={albumUrl} />
+  <PlayWidget.TrackInfo title={title} artists={artists} />
+  <PlayWidget.ProgressBar progress={progress} />
+</PlayWidget.Root>
+```
+
+### 3. Custom Hooks for Logic
+```tsx
+// Extract complex state logic into hooks
+function useCurrentlyPlaying() {
+  // tRPC calls, caching, error handling
+}
+
+function useProgressTimer(initialData: PlayingState) {
+  // Progress calculation, timer management
+}
+
+// Keep components focused on rendering
+function PlayWidget() {
+  const { data, loading } = useCurrentlyPlaying();
+  const progress = useProgressTimer(data);
+  
+  return <PlayWidgetUI data={data} progress={progress} loading={loading} />;
+}
+```
+
+## Component Communication
+
+### Props Interface Design
+```tsx
+// Good: Clear, typed interfaces
+interface TrackInfoProps {
+  title: string;
+  artists: string[];
+  className?: string;
+}
+
+// Bad: Vague or overly broad props
+interface TrackInfoProps {
+  data: any;
+  config: object;
+}
+```
+
+### Event Handling
+```tsx
+// Good: Specific event handlers
+interface ProgressBarProps {
+  onSeek?: (timeMs: number) => void;
+  onPlayPause?: () => void;
+}
+
+// Bad: Generic handlers
+interface ProgressBarProps {
+  onClick?: (event: any) => void;
+}
+```
+
+## Testing Modularity
+
+### Unit Testing Individual Components
+```tsx
+// Test each component in isolation
+describe('AlbumArtwork', () => {
+  it('renders with fallback when no image provided', () => {
+    render(<AlbumArtwork />);
+    expect(screen.getByTestId('fallback-artwork')).toBeInTheDocument();
+  });
+});
+```
+
+### Integration Testing
+```tsx
+// Test component composition
+describe('PlayWidget', () => {
+  it('integrates all sub-components correctly', () => {
+    const mockData = createMockPlayingState();
+    render(<PlayWidget data={mockData} />);
+    
+    expect(screen.getByTestId('album-artwork')).toBeInTheDocument();
+    expect(screen.getByTestId('track-info')).toBeInTheDocument();
+    expect(screen.getByTestId('progress-bar')).toBeInTheDocument();
+  });
+});
+```
+
+## Common Anti-Patterns to Avoid
+
+1. **God Components**: Components that do everything
+2. **Prop Drilling**: Passing props through many levels
+3. **Mixed Concerns**: Business logic mixed with presentation
+4. **Tight Coupling**: Components that know too much about each other
+5. **No Abstraction**: Repeating similar UI patterns instead of extracting components
+
+## Benefits of Modular Design
+
+- **Maintainability**: Easier to update and debug individual pieces
+- **Reusability**: Components can be used in multiple contexts
+- **Testability**: Smaller components are easier to test thoroughly
+- **Collaboration**: Team members can work on different components simultaneously
+- **Performance**: Better code splitting and lazy loading opportunities
