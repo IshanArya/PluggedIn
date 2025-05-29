@@ -22,7 +22,22 @@ import { caller } from './server/trpcServer';
 
 const theme = createTheme({
   primaryColor: 'green',
+  primaryShade: 5,
   fontFamily: 'Inter, sans-serif',
+  colors: {
+    green: [
+      '#ecfdf5', // emerald-50
+      '#d1fae5', // emerald-100
+      '#a7f3d0', // emerald-200
+      '#6ee7b7', // emerald-300
+      '#34d399', // emerald-400
+      '#10b981', // emerald-500
+      '#059669', // emerald-600
+      '#047857', // emerald-700
+      '#065f46', // emerald-800
+      '#064e3b', // emerald-900
+    ],
+  },
 });
 
 export const links: Route.LinksFunction = () => [
