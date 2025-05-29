@@ -1,0 +1,29 @@
+---
+description: Use the npx sst dev command to start the app in development mode with full SST integration, enabling hot reloading and local testing of all features. This is the recommended way to run the app during development.
+globs: 
+alwaysApply: false
+---
+# Starting the App with SST
+
+## When to Use
+- Use the `sst dev` command to start the application in development mode.
+- This command should be used whenever you want to run the app locally with hot reloading and full SST integration (including serverless, API, and frontend).
+- Do **not** use `npm run dev` or other dev commands unless specifically instructed for a different context.
+
+## How to Start
+1. Open your terminal and navigate to the project root directory.
+2. Run:
+   ```sh
+   npx sst dev
+   ```
+3. The app will start with hot reloading and all SST features enabled.
+
+## Notes
+- The app will be available at the local URL printed in the terminal (commonly `http://localhost:3000` or similar).
+- This is the recommended way to develop and test the full stack of the application.
+- If you make changes to infrastructure or serverless code, `sst dev` will automatically reload as needed.
+
+## Example
+```sh
+npx sst dev
+```
