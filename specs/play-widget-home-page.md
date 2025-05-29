@@ -1,10 +1,11 @@
-# Spec: Play Widget on Home Page for Authenticated Users
+# Spec: Play Widget Dashboard for Authenticated Users
 
 ## 1. Overview
 
-- **Goal:** Transform the home page (`app/routes/_index.tsx`) to show different content based on user authentication state:
-  - **Not logged in:** Display the current landing page (HeroSection, FeaturesSection, TestimonialsSection, CTASection)
-  - **Logged in:** Display a Play Widget showing the user's currently playing Spotify track
+- **Goal:** Create a clean separation between the landing page and authenticated user experience:
+  - **Home Page (`/`)**: Always shows the landing page for marketing/onboarding
+  - **Dashboard Page (`/dashboard`)**: Shows the Play Widget for authenticated users
+  - **Redirect Logic**: Home page redirects authenticated users to `/dashboard`
 - **Backend Integration:** Use existing tRPC endpoint `getCurrentUserPlayingState` from `app/server/router/loader/spotify/getCurrentUserPlayingState.ts`
 - **Performance Optimization:** Implement client-side progress bar updates to minimize Spotify API calls
 
@@ -12,29 +13,34 @@
 
 ## 2. Requirements
 
-### 2.1. Conditional Content Display
+### 2.1. Route Structure
 
-- Convert `_index.tsx` from a simple component to a layout that conditionally renders based on authentication state
-- Maintain the existing landing page functionality for non-authenticated users
-- Show Play Widget for authenticated users
+- **Home Page (`/`)**: Landing page with redirect logic for authenticated users
+- **Dashboard Page (`/dashboard`)**: Protected route showing Play Widget
+- **Authentication Flow**: All login buttons redirect to `/dashboard` after authentication
 
-### 2.2. Play Widget Features
+### 2.2. Home Page Behavior
 
-The Play Widget should display:
+- **Unauthenticated Users**: Display full landing page (HeroSection, FeaturesSection, TestimonialsSection, CTASection)
+- **Authenticated Users**: Redirect to `/dashboard` using React Router loader redirect
+
+### 2.3. Dashboard Page Features
+
+The Dashboard should display the Play Widget with:
 - **Song Title:** Current track name
 - **Artist(s):** Comma-separated list of artists
 - **Album Artwork:** Display the album cover image
 - **Progress Bar:** Visual representation of playback progress
 - **Playback Status:** Visual indicator if music is playing or paused
 
-### 2.3. Real-time Progress Updates
+### 2.4. Real-time Progress Updates
 
 - **Initial Load:** Fetch current playing state from tRPC endpoint
 - **Progress Animation:** Update progress bar every second on the client-side
 - **Periodic Refresh:** Refresh data from backend every 3 seconds to handle track changes
 - **API Rate Limiting:** Minimize calls to Spotify API through smart caching
 
-### 2.4. Error Handling
+### 2.5. Error Handling
 
 - Handle cases where no music is playing
 - Handle Spotify API errors gracefully
@@ -48,45 +54,45 @@ The Play Widget should display:
 ### 3.1. Route Structure Changes
 
 ```
-app/routes/_index.tsx → Layout component with conditional rendering
-├── Unauthenticated: Landing page components
-└── Authenticated: Play Widget component
+app/routes/
+├── _index.tsx → Landing page with auth redirect logic
+└── dashboard.tsx → New protected route with Play Widget
 ```
 
 ### 3.2. Component Architecture
 
 ```
-_index.tsx (Layout)
-├── useAuth() → Check authentication state
+_index.tsx (Landing Page + Redirect)
+├── useLoaderData() → Check authentication state
 ├── LandingPageView (existing components)
-└── PlayWidgetView
-    ├── useCurrentlyPlaying() → tRPC hook
-    ├── useProgressTimer() → Client-side progress updates
-    ├── PlayWidgetCard → Main widget container
-    ├── AlbumArtwork → Image component
-    ├── TrackInfo → Song/artist display
-    └── ProgressBar → Animated progress indicator
+└── redirect() → Redirect to /dashboard if authenticated
+
+dashboard.tsx (Protected Dashboard)
+├── useLoaderData() → Authentication check + protection
+├── PlayWidgetContainer → Main dashboard content
+└── Error boundaries for auth failures
 ```
 
-### 3.3. Custom Hooks
+### 3.3. Authentication Flow
 
-#### `useCurrentlyPlaying()`
-- Calls tRPC `getCurrentUserPlayingState` endpoint
-- Refreshes every 3 seconds
-- Handles loading and error states
-- Returns current playing state data
+```
+1. User visits / (home)
+2. Loader checks authentication
+3. If authenticated: redirect to /dashboard
+4. If not authenticated: show landing page
 
-#### `useProgressTimer()`
-- Updates progress bar every second
-- Calculates progress based on initial progress + elapsed time
-- Resets when new track data is received
-- Pauses when track is not playing
+1. User clicks login button
+2. OAuth flow with callbackURL=/dashboard
+3. User redirected to /dashboard after success
+4. Dashboard loader verifies auth and shows Play Widget
+```
 
 ### 3.4. Data Flow
 
-1. **Initial Load:**
-   - Check authentication state
-   - If authenticated, fetch current playing state
+1. **Dashboard Load:**
+   - Check authentication in loader
+   - Redirect to home if not authenticated
+   - Fetch current playing state
    - Display Play Widget with data
 
 2. **Progress Updates:**
@@ -103,79 +109,58 @@ _index.tsx (Layout)
 
 ## 4. UI/UX Design
 
-### 4.1. Play Widget Layout
+### 4.1. Dashboard Layout
 ```
 ┌─────────────────────────────────────────┐
-│  [Album Art]  Song Title                │
-│      80x80    Artist Name               │
-│               ████████▒▒▒▒ 2:15 / 3:42  │
-│               [Progress Bar]            │
+│                Dashboard                │
+│                                         │
+│  ┌─────────────────────────────────────┐ │
+│  │  [Album Art]  Song Title            │ │
+│  │      80x80    Artist Name           │ │
+│  │               ████████▒▒▒▒ 2:15/3:42│ │
+│  │               [Progress Bar]        │ │
+│  └─────────────────────────────────────┘ │
+│                                         │
+│         (Future dashboard features)     │
 └─────────────────────────────────────────┘
 ```
 
 ### 4.2. Component Styling (Mantine)
-- Use Mantine's `Card` component for the main container
+- Use Mantine's `Container` for dashboard layout
+- `Card` component for the Play Widget
 - `Image` component for album artwork with fallback
 - `Text` components for song/artist information
 - Custom or `Progress` component for the progress bar
 - `Group` and `Stack` for layout organization
 - Responsive design for mobile compatibility
 
-### 4.3. States
-
-#### Playing State
-- Album artwork displayed
-- Song title and artist shown
-- Animated progress bar
-- Play icon or visual indicator
-
-#### Paused State
-- Same layout as playing
-- Static progress bar
-- Pause icon or visual indicator
-
-#### No Music Playing
-- Placeholder message: "No music currently playing"
-- Spotify logo or generic music icon
-- Call-to-action to start playing music
-
-#### Loading State
-- Skeleton loading for Play Widget
-- Loading spinner for initial data fetch
-
-#### Error State
-- Error message with retry option
-- Fallback to "Connect your Spotify" message
-
 ---
 
 ## 5. Implementation Steps
 
-### 5.1. Authentication Integration
-1. Add authentication context or hook to determine login state
-2. Modify `_index.tsx` to conditionally render based on auth state
+### 5.1. Update Login Flow
+1. Update all `LoginButton` components to use `/dashboard` callbackURL
+2. Change default callbackURL in `LoginButton.tsx` to `/dashboard`
 
-### 5.2. Play Widget Components
-1. Create `PlayWidget` component in `app/components/`
-2. Implement `AlbumArtwork`, `TrackInfo`, and `ProgressBar` subcomponents
-3. Add proper TypeScript types for all props
+### 5.2. Modify Home Page
+1. Add redirect logic to `_index.tsx` loader
+2. Keep existing landing page components for unauthenticated users
 
-### 5.3. Custom Hooks
-1. Implement `useCurrentlyPlaying` hook with tRPC integration
-2. Create `useProgressTimer` hook for client-side progress updates
-3. Add error handling and loading states
+### 5.3. Create Dashboard Route
+1. Create new `app/routes/dashboard.tsx` file
+2. Add authentication protection in loader
+3. Integrate existing `PlayWidgetContainer`
 
-### 5.4. tRPC Integration
-1. Ensure tRPC client is properly configured
-2. Add proper error handling for the endpoint
-3. Implement proper TypeScript types
+### 5.4. Component Migration
+1. Move Play Widget components (already created)
+2. Update imports and routing
+3. Test authentication flow
 
 ### 5.5. Testing & Polish
-1. Test with different music playing states
-2. Test authentication flow integration
-3. Verify progress bar accuracy
-4. Test error handling scenarios
-5. Ensure responsive design
+1. Test redirect flows
+2. Test dashboard authentication protection
+3. Verify Play Widget functionality
+4. Test error scenarios
 
 ---
 
@@ -186,10 +171,10 @@ _index.tsx (Layout)
 - Use client-side calculations for progress updates
 - Cache responses appropriately
 
-### 6.2. Resource Management
-- Clear timers when component unmounts
-- Handle memory leaks from intervals
-- Optimize re-renders with proper dependency arrays
+### 6.2. Route Protection
+- Server-side authentication checks in loaders
+- Proper redirects for unauthorized access
+- Clean error handling for auth failures
 
 ### 6.3. Loading Optimization
 - Show loading states immediately
@@ -200,10 +185,10 @@ _index.tsx (Layout)
 
 ## 7. Security & Best Practices
 
-### 7.1. Authentication
-- Verify user authentication before showing Play Widget
+### 7.1. Route Protection
+- Verify user authentication in dashboard loader
+- Redirect to home page if not authenticated
 - Handle token expiration gracefully
-- Redirect to login if authentication fails
 
 ### 7.2. Error Handling
 - Don't expose sensitive API errors to users
@@ -214,14 +199,14 @@ _index.tsx (Layout)
 - Follow TypeScript strict typing rules
 - Use proper async/await patterns
 - Implement proper component lifecycle management
-- Follow React and tRPC best practices
+- Follow React Router and tRPC best practices
 
 ---
 
 ## 8. Future Enhancements
 
+- Add more dashboard features (listening history, friends, etc.)
 - Add playback controls (play/pause/skip)
-- Show listening history
 - Add social features (share what you're listening to)
 - Implement real-time sync with other users
 - Add music recommendations based on current track 
